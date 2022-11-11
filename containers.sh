@@ -21,4 +21,4 @@ CreateDockerContainers()
 CreateDockerContainers
 
 #Calls the next script
-#./files.sh
+./files.sh
