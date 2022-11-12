@@ -72,7 +72,7 @@ Inputs()
         #Prints the contents of GAME_OF_DOCKERS.txt
         cat ./GAME_OF_DOCKERS.txt
         echo
-    #If user inputs no, exit the script
+    #If user inputs no, move on
     elif [ $choice == "No" ] || [ $choice == "no" ]; then
         echo 
     #If user inputs invalid input, exit the script
@@ -90,7 +90,7 @@ Inputs()
         #Runs the function to remove text
         RemoveText
         echo
-    #If user inputs no, exit the script
+    #If user inputs no, move on
     elif [ $choice2 == "No" ] || [ $choice2 == "no" ]; then
         echo 
     #If user inputs invalid input, exit the script
@@ -108,10 +108,45 @@ Inputs()
         #Runs the function to add text
         AddText
         echo
-    #If user inputs no, exit the script
+    #If user inputs no, move on
     elif [ $choice3 == "No" ] || [ $choice3 == "no" ]; then
+        echo 
+    #If user inputs invalid input, exit the script
+    else
+        echo "Invalid input, exiting script..."
+        exit 1
+    fi
+
+    #Asks user if they want to read the updated GAME_OF_DOCKERS.txt
+    echo "Would you like to read the updated GAME_OF_DOCKERS.txt? Yes/No: "
+    read choice4
+
+    #If user inputs yes, print the contents of GAME_OF_DOCKERS.txt
+    if [ $choice4 == "Yes" ] || [ $choice4 == "yes" ]; then
+        #Prints the contents of GAME_OF_DOCKERS.txt
+        cat ./GAME_OF_DOCKERS.txt
+        echo
+    #If user inputs no, move on
+    elif [ $choice4 == "No" ] || [ $choice4 == "no" ]; then
+        echo 
+    #If user inputs invalid input, exit the script
+    else
+        echo "Invalid input, exiting script..."
+        exit 1
+    fi
+
+    #Asks user if the want to terminate the script
+    echo "Would you like to terminate the script? Yes/No: "
+    read choice5
+
+    #If user inputs yes, exit the script
+    if [ $choice5 == "Yes" ] || [ $choice5 == "yes" ]; then
         echo "Exiting script..."
         exit 0
+    #If user inputs no, restart the user prompts
+    elif [ $choice5 == "No" ] || [ $choice5 == "no" ]; then
+        echo
+        Inputs
     #If user inputs invalid input, exit the script
     else
         echo "Invalid input, exiting script..."
