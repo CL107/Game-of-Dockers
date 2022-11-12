@@ -7,10 +7,8 @@ WriteFiles()
 
     #Creates a variable to keep track of the number of files written
     count=0
-
     #Creates a temporary variable to act as a boolean for a loop
     x=true
-
     #Loop to increment writing files to GAME_OF_DOCKERS.txt by 2 each time until all lines written
     while $x; do
 
@@ -30,33 +28,29 @@ WriteFiles()
             if docker exec container$i cat Docker$i/$count &> /dev/null >> ./GAME_OF_DOCKERS.txt; then
                 #Writes a new line to GAME_OF_DOCKERS.txt
                 echo >> ./GAME_OF_DOCKERS.txt
-
                 ((count-=1))
             #If there is no file, exit the loop
             else
                 x=false
             fi
         done
-
         #Increments count by 2
         ((count+=2))
     done
 }
 
+#Function to remove text from GAME_OF_DOCKERS.txt
 RemoveText()
 {
     #Prompts user to enter a phrase to remove from GAME_OF_DOCKERS.txt
     echo "Enter the full path of the .txt you would like to remove from GAME_OF_DOCKERS.txt: "
     read text
 
-    #cat $text >> "$textremove"
     #Removes the specified .txt file from GAME_OF_DOCKERS.txt
     sed -i "/$(cat $text)/d" ./GAME_OF_DOCKERS.txt
-
-    #sed -i "/$textremove/g" ./GAME_OF_DOCKERS.txt    
-
 }
 
+#Function to add text to GAME_OF_DOCKERS.txt
 AddText()
 {
     #Asks user for input
@@ -66,6 +60,7 @@ AddText()
     echo $text >> ./GAME_OF_DOCKERS.txt
 }
 
+#Function to provide user with options based on GAME_OF_DOCKERS.txt
 Inputs()
 {
     #Asks user for input
@@ -80,6 +75,7 @@ Inputs()
     #If user inputs no, exit the script
     elif [ $choice == "No" ] || [ $choice == "no" ]; then
         echo 
+    #If user inputs invalid input, exit the script
     else
         echo "Invalid input, exiting script..."
         exit 1
@@ -97,6 +93,7 @@ Inputs()
     #If user inputs no, exit the script
     elif [ $choice2 == "No" ] || [ $choice2 == "no" ]; then
         echo 
+    #If user inputs invalid input, exit the script
     else
         echo "Invalid input, exiting script..."
         exit 1
@@ -115,12 +112,13 @@ Inputs()
     elif [ $choice3 == "No" ] || [ $choice3 == "no" ]; then
         echo "Exiting script..."
         exit 0
+    #If user inputs invalid input, exit the script
     else
         echo "Invalid input, exiting script..."
         exit 1
     fi
 }
 
-#Runs function
+#Runs functions
 WriteFiles
 Inputs

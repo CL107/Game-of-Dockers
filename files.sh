@@ -14,10 +14,12 @@ ShortestFirst()
     ls -Sr ./Docker$i/ | while read file; do
         #echo "$file"
         docker cp ./Docker$i/$file container$i:/Docker$i/$count
+        #Increments count variable
         ((count+=1))
     done   
 }
 
+#Function to order files in order of first come first serve
 FSFS()
 {
     #Creating a variable to keep files stored in order
@@ -30,10 +32,12 @@ FSFS()
     ls ./Docker$i/ | while read file; do
         #echo "$file"
         docker cp ./Docker$i/$file container$i:/Docker$i/$count
+        #Increments count variable 
         ((count+=1))
     done   
 }
 
+#Function to add files to containers
 ContainerFiles()
 {
     #Loop to add files to containers
@@ -46,8 +50,9 @@ ContainerFiles()
         elif [ $i -eq 2 ]; then
             #Runs the shortest first function
             ShortestFirst "$i"
+        #Adds the files to container 3 in order of shortest file first
         else
-            #Runs the shortes first function
+            #Runs the shortest first function
             ShortestFirst "$i"
         fi
     done
