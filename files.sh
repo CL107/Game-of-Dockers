@@ -7,13 +7,13 @@ ShortestFirst()
     #Creating a variable to keep files stored in order
     count=0
 
-    #Creates Docker$i directory
-    docker exec container$i mkdir Docker$i/
-    
-    #Prints contents of Docker$i directory in size order and copies them to Docker$i directory within container
-    ls -Sr ./Docker$i/ | while read file; do
-        #echo "$file"
-        docker cp ./Docker$i/$file container$i:/Docker$i/$count
+    #Copies relevant docker file into container
+    docker cp ./Docker\ Files/Docker$i/ container$i:/Docker$i/
+
+    #Outputs contents of Docker$i directory in size order
+    docker exec container$i ls -Sr ./Docker$i/ | while read file; do
+        #Replaces the unsorted files with the sorted files in the Docker$i directory
+        docker exec container$i mv ./Docker$i/$file /Docker$i/$count
         #Increments count variable
         ((count+=1))
     done   
@@ -31,7 +31,7 @@ FSFS()
     #Prints contents of Docker$i directory in size order and copies them to Docker$i directory within container
     ls ./Docker$i/ | while read file; do
         #echo "$file"
-        docker cp ./Docker$i/$file container$i:/Docker$i/$count
+        docker cp ./Docker\ Files/Docker$i/$file container$i:/Docker$i/$count
         #Increments count variable 
         ((count+=1))
     done   

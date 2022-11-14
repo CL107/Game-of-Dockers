@@ -4,38 +4,38 @@
 WriteFiles()
 {
     echo "Beginning text creation GAME_OF_DOCKERS.txt…"
+    
+    #Find how many files there are within Docker Files    
+    totalFiles=$(find Docker\ Files/ -type f | wc -l)
+    #Halves the total number of files as the loop writes 2 at a time
+    totalFiles=$((totalFiles / 2))
 
-    #Creates a variable to keep track of the number of files written
-    count=0
-    #Creates a temporary variable to act as a boolean for a loop
-    x=true
     #Loop to increment writing files to GAME_OF_DOCKERS.txt by 2 each time until all lines written
-    while $x; do
-
+    for ((count = 0; count < $totalFiles; count++)); do
         #Loop to write files to GAME_OF_DOCKERS.txt
-        for ((i = 1; i < 4; i++)); do
+        for ((i = 1; i < 4; i++)); do     
             #Writes the first file to GAME_OF_DOCKERS.txt
             if docker exec container$i cat Docker$i/$count &> /dev/null >> ./GAME_OF_DOCKERS.txt; then
                 #Writes a new line to GAME_OF_DOCKERS.txt 
                 echo >> ./GAME_OF_DOCKERS.txt
-                ((count+=1))
-            #If there is no file, exit the loop
+            #If an error is produced move to next container
             else
-                x=false
+                #If on the final container, go to first container
+                if [ $i -eq 4 ]; then
+                    i=1
+                #If not on final container, go to next container
+                else
+                    ((i+=1))
+                fi                
             fi
-
             #Writes the second file to GAME_OF_DOCKERS.txt
-            if docker exec container$i cat Docker$i/$count &> /dev/null >> ./GAME_OF_DOCKERS.txt; then
+            if docker exec container$i cat Docker$i/$((count+1)) &> /dev/null >> ./GAME_OF_DOCKERS.txt; then
                 #Writes a new line to GAME_OF_DOCKERS.txt
                 echo >> ./GAME_OF_DOCKERS.txt
-                ((count-=1))
-            #If there is no file, exit the loop
-            else
-                x=false
             fi
         done
-        #Increments count by 2
-        ((count+=2))
+        #Increments count by 1
+        ((count+=1))
     done
 }
 
