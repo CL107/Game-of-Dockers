@@ -47,7 +47,7 @@ RemoveText()
     read text
 
     #Removes the specified .txt file from GAME_OF_DOCKERS.txt
-    sed -i "/$(cat $text)/d" ./GAME_OF_DOCKERS.txt
+    sed -i "/$(cat "$text")/d" ./GAME_OF_DOCKERS.txt
 }
 
 #Function to add text to GAME_OF_DOCKERS.txt
