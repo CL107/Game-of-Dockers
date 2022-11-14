@@ -43,11 +43,11 @@ WriteFiles()
 RemoveText()
 {
     #Prompts user to enter a phrase to remove from GAME_OF_DOCKERS.txt
-    echo "Enter the full path of the .txt you would like to remove from GAME_OF_DOCKERS.txt: "
+    echo "Enter the text you would like to remove from GAME_OF_DOCKERS.txt: "
     read text
 
     #Removes the specified .txt file from GAME_OF_DOCKERS.txt
-    sed -i "/$(cat "$text")/d" ./GAME_OF_DOCKERS.txt
+    sed -i -e "s/$text//" ./GAME_OF_DOCKERS.txt
 }
 
 #Function to add text to GAME_OF_DOCKERS.txt
