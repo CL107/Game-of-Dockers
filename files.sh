@@ -29,7 +29,7 @@ FSFS()
     docker exec container$i mkdir Docker$i/
     
     #Prints contents of Docker$i directory in size order and copies them to Docker$i directory within container
-    ls ./Docker$i/ | while read file; do
+    ls ./Docker\ Files/Docker$i/ | while read file; do
         #echo "$file"
         docker cp ./Docker\ Files/Docker$i/$file container$i:/Docker$i/$count
         #Increments count variable 
